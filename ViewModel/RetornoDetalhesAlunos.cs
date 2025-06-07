@@ -10,17 +10,19 @@ namespace BaseAlunos.ViewModel
     public class RetornoDetalhesAlunos
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
+        public string? Nome { get; set; }
+        public string? Telefone { get; set; }
+        public string? Email { get; set; }
         public DateTime DataNascimento { get; set; }
         public int Idade { get; set; } // calculo a partir da data de nascimento
-        public string Logradouro { get; set; }
+        public string? Logradouro { get; set; }
         public int NumeroLogradouro { get; set; }
         public DateTime DataUltimoPagamento { get; set; }
         public DateTime DataProximoPagamento { get; set; } // calculo a partir da data do ultimo pagamento
-        public string FormaPagamento { get; set; } // enum
-        public string Plano { get; set; } // enum
+        public string? FormaPagamento { get; set; } // enum
+        public string? Plano { get; set; } // enum
+        public decimal ValorPago { get; set; }
+
 
 
 
@@ -39,7 +41,8 @@ namespace BaseAlunos.ViewModel
                 DataUltimoPagamento = modeloAluno.DataUltimoPagamento,
                 DataProximoPagamento = modeloAluno.DataUltimoPagamento.AddMonths((int)modeloAluno.Plano),
                 FormaPagamento = modeloAluno.FormaPagamento.ToString(),
-                Plano = modeloAluno.Plano.ToString()
+                Plano = modeloAluno.Plano.ToString(),
+                ValorPago = modeloAluno.ValorPago
             };
 
         }

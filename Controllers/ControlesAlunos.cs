@@ -100,17 +100,18 @@ namespace BaseAlunos.Controllers
 
                 var aluno = new ModeloAluno
                 {
-                    Nome = model.Nome,
-                    Telefone = model.Telefone,
-                    Email = model.Email,
+                    Nome = model.Nome!,
+                    Telefone = model.Telefone!,
+                    Email = model.Email!,
                     DataNascimento = DataNascimento,
                     Idade = idade,
-                    Logradouro = model.Logradouro,
+                    Logradouro = model.Logradouro!,
                     NumeroLogradouro = model.NumeroLogradouro,
                     DataUltimoPagamento = dataUltimoPagamento,
                     DataProximoPagamento = dataProximoPagamento,
                     FormaPagamento = model.FormaPagamento,
                     Plano = model.Plano,
+                    ValorPago= model.ValorPago,
                     Ativo = true
 
                 };
@@ -131,7 +132,6 @@ namespace BaseAlunos.Controllers
             }
         }
 
-        //método para editar o aluno cadastrado e ativo
         [HttpPatch("{Id}")]
         public async Task<IActionResult> PatchAsync(
             [FromRoute] int Id,
@@ -143,7 +143,7 @@ namespace BaseAlunos.Controllers
             if (aluno == null)
                 return NotFound(new { mensagem = "Aluno não encontrado." });
 
-            // Só atualiza se foi enviado
+            // Atualizações opcionais
             if (!string.IsNullOrWhiteSpace(model.Nome))
                 aluno.Nome = model.Nome;
 
@@ -152,6 +152,12 @@ namespace BaseAlunos.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Email))
                 aluno.Email = model.Email;
+
+            if (!string.IsNullOrWhiteSpace(model.Logradouro))
+                aluno.Logradouro = model.Logradouro;
+
+            if (model.NumeroLogradouro.HasValue)
+                aluno.NumeroLogradouro = model.NumeroLogradouro.Value;
 
             if (!string.IsNullOrWhiteSpace(model.FormaPagamento))
             {
@@ -179,6 +185,22 @@ namespace BaseAlunos.Controllers
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(model.DataNascimento))
+            {
+                if (DateTime.TryParse(model.DataNascimento, out var dataNascimento))
+                {
+                    aluno.DataNascimento = dataNascimento;
+                    aluno.Idade = CalcularIdade(dataNascimento);
+                }
+                else
+                {
+                    return BadRequest("Data de nascimento inválida. Use o formato yyyy-MM-dd.");
+                }
+            }
+            if (model.ValorPago.HasValue)
+                aluno.ValorPago = model.ValorPago.Value;
+
+
             await context.SaveChangesAsync();
 
             return Ok(new
@@ -187,6 +209,16 @@ namespace BaseAlunos.Controllers
                 aluno
             });
         }
+
+        // Método auxiliar pode estar no model também
+        private int CalcularIdade(DateTime dataNascimento)
+        {
+            var hoje = DateTime.Today;
+            var idade = hoje.Year - dataNascimento.Year;
+            if (dataNascimento.Date > hoje.AddYears(-idade)) idade--;
+            return idade;
+        }
+
 
 
 

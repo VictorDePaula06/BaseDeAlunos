@@ -9,7 +9,7 @@ namespace BaseAlunos.Data
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<ModeloAluno> Alunos { get; set; }
+        public DbSet<ModeloAluno> Alunos { get; set; } = null!;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

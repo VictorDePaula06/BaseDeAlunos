@@ -9,11 +9,13 @@ namespace BaseAlunos.ViewModel
     public class RetornoAlunos
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Telefone { get; set; }
+        public string? Nome { get; set; }
+        public string? Telefone { get; set; }
         public int Idade { get; set; }
         public DateTime DataUltimoPagamento { get; set; }
         public DateTime DataProximoPagamento { get; set; }
+        public decimal ValorPago { get; set; }
+
 
 
         public static RetornoAlunos FromModel(ModeloAluno modeloAluno)
@@ -26,6 +28,7 @@ namespace BaseAlunos.ViewModel
                 Idade = modeloAluno.Idade,
                 DataUltimoPagamento = modeloAluno.DataUltimoPagamento,
                 DataProximoPagamento = modeloAluno.DataUltimoPagamento.AddMonths((int)modeloAluno.Plano),
+                ValorPago = modeloAluno.ValorPago
 
             };
         }

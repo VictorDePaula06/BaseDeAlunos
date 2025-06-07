@@ -12,28 +12,31 @@ namespace BaseAlunos.ViewModel
     public class CreatAlunoViewModel
     {
         [Required]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [Required]
-        public string Telefone { get; set; }
+        public string? Telefone { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
-        public string DataNascimento { get; set; }
+        public string? DataNascimento { get; set; }
 
         [Required]
-        public string Logradouro { get; set; }
-        
+        public string? Logradouro { get; set; }
+
         [Required]
         public int NumeroLogradouro { get; set; }
 
         [Required]
-        public string DataUltimoPagamento { get; set; }
+        public string? DataUltimoPagamento { get; set; }
 
         [Required]
         public FormaPagamento FormaPagamento { get; set; }
+
+        [Required]
+        public decimal ValorPago {get; set; }
 
 
         [Required]

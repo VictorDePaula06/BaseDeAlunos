@@ -7,20 +7,15 @@ namespace BaseAlunos.ViewModel
 {
     public class PatchAlunoViewModel
     {
-        public string Nome { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public string DataNascimento { get; set; }
-        public string Logradouro { get; set; }
-        public int NumeroLogradouro { get; set; }
+        public string? Nome { get; set; }
+        public string? Telefone { get; set; }
+        public string? Email { get; set; }
+        public string? Plano { get; set; }  // "Mensal", etc.
+        public string? FormaPagamento { get; set; } // "Pix", etc.
+        public string? Logradouro { get; set; }
+        public int? NumeroLogradouro { get; set; } // <-- Aqui precisa ser int?
+        public string? DataNascimento { get; set; } // yyyy-MM-dd
+        public decimal? ValorPago { get; set; }
 
-        /// <summary>
-        /// Plano (Mensal, Trimestral, Anual)
-        /// </summary>
-        public string Plano { get; set; }
-        /// <summary>
-        /// Forma de pagamento (Pix, Dinheiro, Cartao)
-        /// </summary>
-        public string FormaPagamento { get; set; }
     }
 }
